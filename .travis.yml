@@ -8,6 +8,8 @@ before_install:
 
 script:
   - docker run -e CI=true sori/docker-react npm run test
+  - echo "$AWS_ACCESS_KEY"
+  - echo "$AWS_SECRET_KEY"
 
 deploy:
   provider: elasticbeanstalk
