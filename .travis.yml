@@ -1,26 +1,23 @@
 language: generic
 sudo: required
 services:
-  - docker
-
+- docker
 before_install:
-  - docker build -t sori/docker-react -f Dockerfile.dev .  
-
+- docker build -t sori/docker-react -f Dockerfile.dev .
 script:
-  - docker run -e CI=true sori/docker-react npm run test
-  - echo "$AWS_ACCESS_KEY"
-  - echo "$AWS_SECRET_KEY"
-
+- docker run -e CI=true sori/docker-react npm run test
+- echo "$AWS_ACCESS_KEY"
+- echo "$AWS_SECRET_KEY"
 deploy:
   provider: elasticbeanstalk
-  region: "us-east-2"
-  app: "docker-react"
-  env: "Dockerreact-env"
-  bucket_name: "elasticbeanstalk-us-east-2-228194064843"
-  bucket_path: "docker-react"
+  region: us-east-2
+  app: docker-react
+  env: Dockerreact-env
+  bucket_name: elasticbeanstalk-us-east-2-228194064843
+  bucket_path: docker-react
   on:
     branch: main
-  access_key_id: 
-    secure: "LStwXFBSN4g8kRFaGKIdB29FOSNcgBepUBVT1Bdf4MhD/rY9lR/1e9L3N2NF8pW0I1yai3Pj0Ml5R6upYX24kEJzbx0jl+PZxTJsH+F6uq8zFNNNbtk6xyXrvX88Z0qsXrhULBnefmonO1wKbxXLQuZb3+d/pZhZPM6BAhFviG3LHUE1TLCf3siSC3yXi8pywP2kmGwPoxZGA3mVaepmMaOVWv+/coPtJpJgtNpRxNOkkebN8yxEuYEnRrM0DaD+VL0GGDd2UxowqL8GaGILM1rZnK5Bb+IAObZjjd8mGK1xqaTmRQnioOSzCRxjAJC4n1NYXnXtzjWpPW4MHCVx6HnOA44BgkV3lsbLUBtX7gizv0QTtVEs7YSyhnWhWqtLOd1hxNaOa6WdmvcdpPHsPfIk37rFedzKJ2WSBEIgVHzEBkhZTvFKeNQEq8ag+vRy8EPz06mKLGd9cnIB70wvKPxcKoBGDakz2xMM+QZd4IIsUYnVWCVbEbVqIETWC6GAbPE5p7ydez/ldq2+lI+84o2nkDNhf+Gd1uaDC+P3Z1qbJW5KE70MbQW+Zsez8glZPjL7nTiAEUHUL81mvVH0izd73LYpAAL2/KFac/bjx/SfTABMhZMpi3LEgXg5ZC6HfiYsDkc26rfond8+bXRIWB9YzCgIk3reX09qrsSaSCg="
-  secret_access_key: 
-    secure: "SYI9TD16h9krJX2CEDzAgUnnlkkSy73CJ107KQM0Wm6M3XvGuYIsmiMIqvIFJS5bAXhSKOZ9r4CduTlbgt8+1lbS7K1cVUfCwWp7vGxKiZBx83sqAo9EqmYrIHXTabUMdpsy/yGbG4klSM9jlsSuK/ZbOeQWP9wahGMDGacA5NEXfBovDy8hYJAD3Y6z16SW/VbSG0Bx1Pq7/G7EE3sPjk8DsDbdaYcNle7ex6rbt8AAWjfKLWIRjF6ZNgQIBzv5MOGNa/yrMrBdQiHGaVdrJ1M8GizHN7Yv4cWZ8znRDz2sG3N4K95UhMmXTY9oMiaFj+NfMNCPmRqqLmAQadQF9hQLuqNSqtlGtd7GZctRSLVOi2u6ur4steug9MbqXfhvFUGc0hqRKRGRmGweqLR2bfW7t7JZkL+PU5Kmrn4yq+BJBVMR8lOlUPgM2MwnGX04WgWIkf52VI5jpRS1cBxrmiiTHShKz2dtFC4F0R7+IeCkZiewvShz3AqQKTDo/7C6jqGbCyziXaHBDFPMR8fb8ezQc+mY9xyzqYbZeMaW4qlwAPi0wQVshad9Qpk4EVg6OQ/21AEt1b9z6SZIDEqabEXCOInG1KnPuQjljE7ftrpZgmXTOjclLhmpjhmSrs2z47zypRugEJgprLNX5dvUoeufPRgpyyGY65CNXr2+8VI="
+  access_key_id:
+    secure: GprB07b6aGZB6p2LxO8ucYg9WM7jyAe+FZ0yx4HBYhI3X0QlR3H6kENK9Q8/QwdvzzHYFVHdtbWFg43CiyEY/ht1bSfZKA+0kXTiCxef7ZryMY6sANBaC9bBSV+MqioEE5UPA97TOjJKZjxhPeYdsUyyKIvta2frpHH4kdy5STl+maxWg7enUWIsxn6F5mFHaoVpe9VzoHK+qPFeYLrtnC3M27g2WQGkl1ji+1O+xJASfoGnBbQ5jl98eGfLQ3DDcBZRkD1cjexMX0o45eQRjLpPQhqMfLqBdA5aioT2kB//SVrYQfVJycz1Adox9Gx+U6Y1R1J2/x0hjGysFRUdOGcbHforWZKJn+u05zKMHvjUe/P9Uj60GfC2S1ntAP3FnROCAaopZ2uGuUjuCSxvkl5l2pbpxV1oaDlHcfZNuOdjSysHNoJeWz/YAYaQ5JJDvUZYJ0K9YiX1Im/cFZ51aoi8+DnU7vgkYdZd53FClxEvStHkaGPMN2H0f2OrnAU6pzemxeziyc4bXic1v7TqYAtT+E8v06M4xQHUrhOkAJj+CNt1AeivS0SiOSMsMq+X8ug4/fXHAMCCO4Ics3dyaSYgsV4y2uq/J0aXb66YK9Fe+xCol0deSxGKFFSxppgB7FHydADFnQ6OMI5T7vocy1kidDkxRwTENDbe3PlFvc8=
+  secret_access_key:
+    secure: D9aBhTdxkkjXYz5aa0DWb/Ad/Au6vz6OhE+yFT6v++NTfGwsBc80BWwf2BXskj3dyOrkh9hkLZJPt8rQfdgUcZ07J4q/WJSTToP4TKnrIqiyy5AeJ9pbk1A8Fnxm1/1+CZI/myLj9Tm7erQ+QTs4EuLoS556de4pRTQ++UYymtSmbW07WSllPbFETQ+1rI0OWejbufp3tANWWigxFraLN7X+tHnUKtuMnY/zJ05wS8UnSloyu8IGEdwdsIi9CujAVXJy6vwr8T+/bbTLd+En4jRC+gV3UwlN1mSujfS92czhmB1oNnekbz9MJ1uKyVkKXm2sLdRwh2L+mAZZCbbQM9p6hcZH1fjHHTdhtHSeP5jtKH7vYLZJ0DXzcSbRB6fqwvyPzaF4yYrVHFz6BeODHrCe+iRNcahI394pkCz1oiEU2o1HAEmbbVjelvs55XXST/Nje/wObSgcmGdPS5L70LlLAGRKynzt19pwaPUiw2IpR8dnqMQtT/sLLPleRTGWSdXvdrT/7AL7DKz8hWGuu6/PsAVGQTKyn2d9qiGv52Y/AOXaqqz1LZVrjzBU6vjbslC37zF51EffSXVRIlPRCtZz7I2IVgpiYubF6buaRmuBrACn9bAxIjIJz/IVf2oah1cE2oxaaLC64vDIZfqVicOMGZSuheVxnB3kpLk7Sx4=
